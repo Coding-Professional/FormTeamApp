@@ -40,14 +40,37 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p ng-repeat="user in ftc.team">
-                        <img ng-src="{{ user.avatar }}" alt="{{ user.first_name }} {{ user.last_name }}"
-                            class="rounded-circle bg-dark" width="50" height="50">
-                        <strong>{{ user.first_name }} {{ user.last_name }},</strong> {{ user.gender
-                        ==='Male' ? 'M' : 'F' }},
-                        {{ user.domain }}
+                    <!-- <div>
+                        <p ng-repeat="user in ftc.team">
+                            <img ng-src="{{ user.avatar }}" alt="{{ user.first_name }} {{ user.last_name }}"
+                                class="rounded-circle bg-dark" width="50" height="50">
+                            <strong>{{ user.first_name }} {{ user.last_name }},</strong>
+                            {{ user.gender ==='Male' ? 'M' : 'F' }},
+                            {{ user.domain }} <button type="button" class="btn btn-dark float-end"
+                                ng-if="user.available" ng-click="ftc.addToTeam(user);">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                            <hr>
+                        </p>
+                    </div>
+                     -->
+                     <div>
+                        <div ng-repeat="user in ftc.team" class="d-flex align-items-center mb-2">
+                            <img ng-src="{{ user.avatar }}" alt="{{ user.first_name }} {{ user.last_name }}"
+                                class="rounded-circle bg-dark me-2" width="50" height="50">
+                            <div class="flex-grow-1">
+                                <strong>{{ user.first_name }} {{ user.last_name }},</strong>
+                                {{ user.gender === 'Male' ? 'M' : 'F' }},
+                                {{ user.domain }}
+                            </div>
+                            <button type="button" class="btn btn-outline-danger ms-2"
+                                ng-if="user.available" ng-click="ftc.removeFromTeam(user);">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
                         <hr>
-                    </p>
+                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -179,6 +179,36 @@ app.controller('FormTeamController', function ($scope) {
             });
         }
     };
+
+    _this.removeFromTeam = function (user) {
+        var memberIndex = _this.team.findIndex(function (teamMember) {
+            return teamMember.domain === user.domain;
+        });
+    
+        if (memberIndex !== -1) {
+            _this.team.splice(memberIndex, 1);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: user.first_name + " removed from team",
+                showConfirmButton: false,
+                timer: 500
+            });
+            setTimeout(function() {
+                 _this.hideTeamDetails();
+            } , 1500);
+         
+        } else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: user.domain + " domain not found in team",
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }
+    };
+    
     _this.showTeamDetails = function () {
         // var teamMemberNames = _this.team.map(
         //     function (teamMember) {
@@ -189,6 +219,23 @@ app.controller('FormTeamController', function ($scope) {
         // _this.modalTeamMembers = teamMembersString;
         teamDetailsModal.show();
     };
+
+    _this.hideTeamDetails = function () {
+        var teamDetailsModalElement = document.getElementById('teamDetails');
+        
+        if (teamDetailsModalElement) {
+            var teamDetailsModal = bootstrap.Modal.getInstance(teamDetailsModalElement);
+            
+            if (!teamDetailsModal) {
+                teamDetailsModal = new bootstrap.Modal(teamDetailsModalElement);
+            }
+            
+            teamDetailsModal.hide();
+        } else {
+            console.error('Modal element with id "teamDetails" not found.');
+        }
+    };
+    
 
     _this.resetFilters = function () {
         _this.selectedDomain = null;
